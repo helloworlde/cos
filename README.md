@@ -33,6 +33,14 @@ func operate(request events.APIGatewayRequest) (string, error) {
 
 ### 部署
 
+- 构建
+
+```shell
+make image
+```
+
+上传生成的 `main.zip` 文件
+
 在 `函数管理` => `函数配置`中添加使用到的环境变量
 
 ```shell

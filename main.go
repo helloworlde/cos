@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"strings"
 
 	"github.com/helloworlde/cos/tool"
 	"github.com/tencentyun/scf-go-lib/cloudfunction"
@@ -76,6 +77,12 @@ func executeUpload(name string, cookie string) (Response, error) {
 	return resp, nil
 }
 
+func trimFilePrefix(name string) string {
+	prefix := os.Getenv("COS_PATH")
+	name = strings.TrimLeft(name, prefix+"/")
+	return name
+}
+
 func getFileName(domain string) string {
 	prefix := os.Getenv("COS_PATH")
 	name := fmt.Sprintf("%s/%s", prefix, domain)
@@ -89,7 +96,7 @@ func executeDownload(name string) (Response, error) {
 	}
 
 	resp := Response{
-		Domain: name,
+		Domain: trimFilePrefix(name),
 		Cookie: result,
 	}
 	return resp, nil

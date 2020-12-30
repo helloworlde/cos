@@ -4,6 +4,24 @@
 >
 > 使用到了腾讯云的云函数 Serverless、对象存储 COS、以及 API 网关；请求通过 API 网关，转发给后端的 Serverless 服务，然后将 Cookie 信息以文件的形式保存在 COS 中；查询时从 COS 读取文件内容，作为响应发送出去
 
+## 使用
+
+- 上传
+
+```bash
+curl -X POST https://xxxxxxx.apigw.tencentcs.com/release/cos -d '{"token": "123456", "action": "UPLOAD", "domain": "test.domain","cookie": "test-content"}'
+
+"{\"success\":true,\"message\":\"SUCCESS\",\"domain\":\"\",\"cookie\":\"\"}"%
+```
+
+- 下载
+
+```shell
+curl -X POST https://xxxxxxx.apigw.tencentcs.com/release/cos -d '{"token": "123456", "action": "DOWNLOAD", "domain": "test.domain"}'
+
+"{\"success\":true,\"message\":\"SUCCESS\",\"domain\":\"test.domain\",\"cookie\":\"test-content\"}"%
+```
+
 ## 实现 Serverless 服务
 
 在腾讯云的[Serverless服务](https://console.cloud.tencent.com/scf/list?rid=8&ns=default)中创建新的函数
